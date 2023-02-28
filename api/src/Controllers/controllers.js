@@ -1,4 +1,6 @@
 const axios = require("axios");
+require("dotenv").config();
+const { API_KEY } = process.env;
 const {Videogame, Genres, Platform} = require("../db");
 
 
@@ -7,7 +9,7 @@ const {Videogame, Genres, Platform} = require("../db");
   //OBTENGO TODOS LOS VIDEOJUEGOS
  const  getApiInfo =  async function() {
    
-     let api = await axios.get("https://api.rawg.io/api/games?key=82040f036891417ead73a2a9ce8edf2e")
+  var api = `https://api.rawg.io/api/games?key=${API_KEY}`;
 
      let api1 = (await axios.get(api)).data;
      let page1 = await api1.results;
@@ -97,7 +99,7 @@ const {Videogame, Genres, Platform} = require("../db");
       }
     }else{
       try{
-        const idApi = (await axios.get(`https://api.rawg.io/api/games/${id}?key=82040f036891417ead73a2a9ce8edf2e`)).data;
+        const idApi = (await axios.get(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`)).data;
 
         const game = {
           id: idApi.id,

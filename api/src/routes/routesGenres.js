@@ -1,12 +1,14 @@
 const { Router } = require("express")
 const axios = require("axios");
+require("dotenv").config();
+const { API_KEY } = process.env;
 const {  Genres } = require("../db")
 
 const videoGameRoutesGenres = Router();
 
 videoGameRoutesGenres.get("/", async (req, res) => {
     try {
-      const apigenres = (await axios.get('https://api.rawg.io/api/genres?key=82040f036891417ead73a2a9ce8edf2e')).data.results   
+      const apigenres = (await axios.get(`https://api.rawg.io/api/genres?key=${API_KEY}`)).data.results   
       const apiGen = apigenres;
 
       apiGen.map(async (e) => await Genres.findOrCreate({

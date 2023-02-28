@@ -1,10 +1,12 @@
 const { Router } = require("express")
 const router = Router();
+require("dotenv").config();
+const { API_KEY } = process.env;
 const { Platform } = require("../db")
 const axios = require("axios")
 
 router.get("/", async (_req, res) => {
-    const apiPlatform = (await axios.get('https://api.rawg.io/api/games?https://api.rawg.io/api/games?key=82040f036891417ead73a2a9ce8edf2e')).data.results
+    const apiPlatform = (await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`)).data.results
 
     try{
         let platforms = apiPlatform.map(p => p.platforms ? p.platforms : 'no data')

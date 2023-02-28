@@ -14,15 +14,12 @@ videogameRoutesGet.get("/", async (req, res) => {
         let found = total.filter(
          f => f.name.toLowerCase().includes(name.toLowerCase())
         ) 
-
         found.length ? 
         res.status(200).send(found) : 
         res.status(400).send('Game not found ..')
       }else{
         res.status(200).send(total.flat())
-
       }
-
       } catch (errors) {
       res.status(400).json({err: errors.message})  
     }
