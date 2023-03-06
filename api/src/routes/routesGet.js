@@ -40,7 +40,7 @@ videogameRoutesGet.get("/:id", async (req, res) => {
 videogameRoutesGet.post("/post", async (req, res) => {
 
    try {
-   let {name, description, platform,released, rating, image, genres} = req.body;
+   let {name, description, platform,released, rating, image, genress} = req.body;
 
     if(!image){
       try{
@@ -50,6 +50,15 @@ videogameRoutesGet.post("/post", async (req, res) => {
       }
     }
 
+    
+    const found = await Genres.findAll({
+      where: {name: genress}
+    })
+    
+    const foundd = await Platform.findAll({
+      where: {name: genress}
+    })
+
       const createVideogames = await Videogame.create({
          name: name,
          description: description,
@@ -57,20 +66,10 @@ videogameRoutesGet.post("/post", async (req, res) => {
          rating: rating,
          image: image,
        })   
- 
-      genres.forEach(async e => {
-       const found = await Genres.findAll({
-         where: {name: e}
-       })
-       createVideogames.addGenres(found)
-      })
        
-      platform.forEach(async element => {
-       const found = await Platform.findAll({
-         where: {name: element}
-       })
-       createVideogames.addPlatform(found)
-      })  
+       createVideogames.addGenres(found)
+       createVideogames.addPlatform(foundd)
+ 
     res.status(201).send(createVideogames) 
  }catch(err){
   res.status(400).json({error: err.message})

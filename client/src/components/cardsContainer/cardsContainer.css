@@ -1,0 +1,72 @@
+.Container_Cards{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 10px;
+  gap: 10px;
+  max-width: 97%;
+  min-height: calc(100vh - 80px);
+}
+
+.Card_Props_Container{
+   display: flex;
+   flex-direction: row;
+   flex-wrap: wrap;
+   border: 3px solid rgb(255, 255, 255);
+   border-radius: 10px;
+   height: 200px;
+   width: 150px; 
+   padding: 1px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   box-shadow: -8px 0px 5px -3px rgba(235,0,0,0.79);;
+}
+
+.Card_Props_Container:hover{
+  scale: 1.05;
+  rotate: 2deg;
+}  
+
+.Conteiner_Next_Prev{
+  width: 100%;
+  gap: 5px;
+  height: 10vh;
+  display: flex;
+  justify-content: end;
+  align-items: end;
+}
+
+.NextPage{
+  border-radius: 5px;
+  padding: 2px;
+  color: white;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 400;
+  background-color: rgb(0, 0, 0);
+  border: 2px solid rgb(255, 0, 0);
+}
+
+.NextPage:hover{
+  background-color: white;
+  color: black;
+  scale: 1.1;
+}
+
+.PrevPage{
+  border-radius: 5px;
+  padding: 2px;
+  color: white;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 400;
+  background-color: rgb(0, 0, 0);
+  border: 2px solid rgb(255, 0, 0);
+}
+
+.PrevPage:hover{
+  background-color: white;
+  color: black;
+  scale: 1.1;
+}

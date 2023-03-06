@@ -32,11 +32,11 @@ const {Videogame, Genres, Platform} = require("../db");
         id: e.id,
         name: e.name,
         image: e.background_image,
-        genres: e.genres.map((e) => e.name),
+        genres: e.genres,
         released: e.released,
         rating: e.rating,
-        platforms: e.platforms.map((e) => e.platform.name),
-        reviews_text_count: e.reviews_text_count
+        description: e.description,
+        platforms: e.platforms,
       }
      })
    return apidata;  
@@ -106,9 +106,10 @@ const {Videogame, Genres, Platform} = require("../db");
           name: idApi.name,
           released: idApi.released,
           rating: idApi.rating,
-          platforms: idApi.parent_platforms.map((e) => e.platform.name),
-          image: idApi.genres.map((e) => e.name),
-          description: idApi.description
+          genres: idApi.genres,
+          platforms: idApi.parent_platforms,
+          image: idApi.background_image,
+          description: idApi.description_raw
         }
         return  game;        
       }catch(err){

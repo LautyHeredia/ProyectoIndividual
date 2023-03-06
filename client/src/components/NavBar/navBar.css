@@ -1,0 +1,36 @@
+.Container_Nav{
+  background-color: rgb(60, 54, 54);
+  border: 2px solid rgb(255, 0, 0);
+  border-radius: 8px;
+  height: 13vh; 
+  width: 99.3%;  
+  margin: 1px;
+  display: flex;
+  flex-direction: row-reverse;
+  margin: 3px;
+}
+
+.Container_Idems{  
+  margin: 5px;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.Container_Idems a{
+    border: 1px solid rgb(255, 0, 0);
+    border-radius: 10px;
+    padding: 4px;
+    text-decoration: none;
+    background-color: rgb(95, 81, 81);
+    color: rgb(255, 255, 255);
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 20px;
+    box-shadow: 2px 5px 31px -4px rgb(255, 0, 0);
+}
+
+.Container_Idems a:hover{
+    scale: 1.1;
+}
