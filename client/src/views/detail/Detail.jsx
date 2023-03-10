@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { detailCard } from '../../redux/actions';
 import { useState, useEffect } from 'react';
 import { Loading } from '../../components/loading/Loading';
+import './detail.css'
 
 const Detail = () => {
   const { id } = useParams();
@@ -22,17 +23,19 @@ const Detail = () => {
   }
 
   return (
-    <div className='Contenedor_Detail'> 
-      <h1>Description Card:</h1>
-      <ul className='Contenedor_Ul'>         
-        <li>Name: {stateDetail.name}</li>
-        <li>Description: {stateDetail.description}</li>
-        {/* <li>Genres: {stateDetail.genres.map((e) => e.name + " ")}</li> */}
-        <li>Rating: {stateDetail.rating}</li>
-        <li>Released: {stateDetail.released}</li>
-        {/* <li>Platform: {stateDetail.platforms.map((e) => e.name + " ")}</li> */}
-        <img src={stateDetail.image} alt='-'/>     
-      </ul>
+    <div className='Contenedor_Detail'>
+       <div className='Contenedor_DeDetalles'>
+        <h1>Description Card:</h1>
+         <h2>Name: {stateDetail.name}</h2>  
+           <img src={stateDetail.image} alt='-' className='Img_Container'/>   
+           <p>Genres: {stateDetail.genres?.map((e) => e.slug + " ")}</p>
+           <p>Rating: {stateDetail.rating}</p>
+           <p>Released: {stateDetail.released}</p>
+           <p>Platform: {stateDetail.platforms?.map((e) => e.platform.slug + " ")}</p>
+         </div>  
+         <div className='Contenedor_Description'>
+           <p>Description: {stateDetail.description}</p>
+         </div>
     </div> 
   );
 }

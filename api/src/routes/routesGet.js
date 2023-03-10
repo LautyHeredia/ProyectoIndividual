@@ -12,7 +12,7 @@ videogameRoutesGet.get("/", async (req, res) => {
       let total = await getAllInfo();
       if(name){
         let found = total.filter(
-         f => f.name.toLowerCase().includes(name.toLowerCase())
+         f => f.name.toLowerCase().includes(name)
         ) 
         found.length ? 
         res.status(200).send(found) : 
@@ -37,7 +37,7 @@ videogameRoutesGet.get("/:id", async (req, res) => {
    } 
 })
 
-videogameRoutesGet.post("/post", async (req, res) => {
+videogameRoutesGet.post("/", async (req, res) => {
 
    try {
    let {name, description, platform,released, rating, image, genress} = req.body;
@@ -56,7 +56,7 @@ videogameRoutesGet.post("/post", async (req, res) => {
     })
     
     const foundd = await Platform.findAll({
-      where: {name: genress}
+      where: {name: platform}
     })
 
       const createVideogames = await Videogame.create({

@@ -1,0 +1,27 @@
+.Container_NavSearch{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+}
+
+.Container_NavSearch input{
+  border-radius: 3px;
+  background-color: rgb(255, 255, 255);
+  color: black;
+  font-size: 15px;
+}
+
+.Container_NavSearch input:hover{
+  background-color: gold;
+}
+
+.Container_NavSearch button{
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255);
+}
+
+.Container_NavSearch button:hover{
+  background-color: red;
+  scale: 1.2;
+}

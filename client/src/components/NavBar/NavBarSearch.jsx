@@ -1,35 +1,31 @@
 import './navBarSearch.css'
 import { useEffect, useState } from 'react';
-import { useDispatch} from 'react-redux'
+import { useDispatch, useSelector} from 'react-redux'
 import { cardByName } from "../../redux/actions"
 
-const NavBarSearch = () => {
+const NavBarSearch = ({setCurrentPage}) => {
 
     const dispatch = useDispatch()
-    const [ nameVD, setNameVd ] = useState([])
+    const [ nameVD, setNameVd ] = useState('')
 
-    const butonName = (evento) => {
-      setNameVd(evento.target.value)  
+    useEffect(() => {
+        dispatch(cardByName(nameVD))
+    }, [dispatch])
+    
+    const handleInputChange = (e) => {
+        e.preventDefault()
+        setNameVd(e.target.value)
     }
-
-     useEffect(() => {
-       dispatch(cardByName(nameVD))
-       setNameVd(nameVD)
-    }, [nameVD])
-
-    const handleSubmit = (evento) => {
-       evento.preventDefault();
-       
-       if(Object.keys(nameVD).length){
-        evento.target.reset()
-       }
+    
+    const handleClick = (e) => {
+      e.preventDefault()
+      dispatch(cardByName(nameVD))
+      nameVD.length && setCurrentPage(0) 
     }
-
     return (
-        <div className="Container_Search">
-            <form className='Container_Form' onSubmit={handleSubmit}>
-                <input type='search' placeholder='Input name hear..' onChange={butonName} />
-            </form>
+        <div className='Container_NavSearch'>
+                <input type='text' placeholder='Input name for search..' onChange={e => handleInputChange(e)} />
+                <button type='submit' onClick={e => handleClick(e)}>🔎</button>
         </div>
     )
 } 

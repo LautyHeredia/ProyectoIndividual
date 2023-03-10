@@ -3,21 +3,27 @@ import Card from '../Card/Card';
 import './cardsContainer.css'
 import { Loading } from '../loading/Loading';
 import {useSelector, useDispatch} from 'react-redux'
-import { allVideogames} from '../../redux/actions';
+import { allVideogames, getGenres} from '../../redux/actions';
 import { orderCards } from '../../redux/actions';
-import { filterCard } from '../../redux/actions';
+import { filterCard,filterByGenre } from '../../redux/actions';
+import NavBarSearch from '../NavBar/NavBarSearch';
 
 const CardsContainer = () => {
-  const [videogames, setVideogames] = useState('');
+  // const [videogames, setVideogames] = useState([]);
   const [loading, setLoading] = useState(true)
   const [currentPage, setCurrentPage] = useState(0);
   const dispatch = useDispatch()
   const myCards = useSelector(state => state.myCards)
+  const myGenres = useSelector(state => state.genres)
   
   useEffect(() => {
     dispatch(allVideogames()).finally(() => setLoading(false))
   }, [dispatch]);
   
+  useEffect(() => {
+    dispatch(getGenres())
+  }, [dispatch])
+
   const filteredVideogames = () => {
     return myCards.slice(currentPage, currentPage + 15);
   }
@@ -36,19 +42,26 @@ const CardsContainer = () => {
     return <Loading/>
   }
 
-  const handleClick = (evento) => {
-    dispatch(orderCards(evento.target.value))
-    setVideogames(`Order ${evento.target.value}`)
+  const handleClick = (evento) => { 
+      dispatch(orderCards(evento.target.value))
   }
 
   const filterClick = (evento) => {
-    dispatch(filterCard(evento.target.value))
+     dispatch(filterCard(evento.target.value))
   }
 
+  const filterGenres = (evento) => {
+    dispatch(filterByGenre(evento.target.value))
+  }
+
+
   return (
-    <div className="Container_Cards"> 
+    <div className="Container_Cards">
+      <div className='Container_Navv'>
+        <NavBarSearch setCurrentPage={setCurrentPage} className='navBar'/>
+      </div> 
     <div className='Container_FilteredVideogames'>
-       <h1>Ordenar por :</h1>
+       <h1>Ordenar por:</h1>
       <select className='Select_Container_Button' onChange={handleClick}>
          <option value={'Ascendente'}>Ascendente</option>
          <option value={'Descendente'}>Descendente</option>
@@ -59,6 +72,15 @@ const CardsContainer = () => {
         <option value={'ApiVideogames'}>Api VideoGames</option>
         <option value={'DbVideogames'}>DB VideoGames</option>
       </select>
+      <select className='select' onChange={filterGenres}>
+        <option>Filter By Genres</option>
+                  <option value="All">All</option>
+               {
+                 myGenres.map(g => (
+                   <option key={g.id} value={g.name}>{g.name}</option>
+                   ))
+                  }
+     </select>
     </div>
       {filteredVideogames().map((videogame) => (
         <div className="Card_Props_Container" key={videogame.id}>

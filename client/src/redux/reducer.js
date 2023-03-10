@@ -1,9 +1,11 @@
-import { FILTER, ORDER, ALL_CARDS, DETAIL_CARD, CARD_BY_NAME,  } from './types';
+import { FILTER, ORDER, ALL_CARDS, FILTER_BY_GENRE , DETAIL_CARD, CARD_BY_NAME,  GET_GENRES, GET_PLATFORMS, POST_VIDEOGAME} from './types';
 
 const initialState = {
  myCards: [],
  myCardsCopy: [],
- mySearchCopy: {},
+ mySearchCopy: [],
+ genres: [],
+ platforms: [],
  myDetail: {}
 }
 
@@ -17,6 +19,42 @@ const reducer = (state = initialState, actions) => {
        mySearchCopy: actions.payload
     }
 
+    case GET_GENRES:
+         return {
+            ...state,
+            genres: actions.payload
+         }
+
+         case FILTER_BY_GENRE: {
+            const allVideogames = [...state.myCardsCopy]
+            let filtered;
+            
+            if(actions.payload === "All"){
+              filtered = allVideogames;
+             return{
+              ...state,
+              myCards: filtered
+             } 
+            }else{
+             filtered = allVideogames.filter((e) =>e.genres.some((e) => e.name === actions.payload))
+             return{
+              ...state,
+              myCards: filtered
+             }
+            }
+          }
+
+         case GET_PLATFORMS:
+          return {
+             ...state,
+             platforms: actions.payload
+          }     
+
+       case POST_VIDEOGAME:
+          return {
+             ...state
+          }     
+
     case DETAIL_CARD: return {
       ...state,
       myDetail: actions.payload
@@ -25,18 +63,21 @@ const reducer = (state = initialState, actions) => {
     case FILTER: {
       const copOrder = [...state.myCardsCopy];
       let filtered;
-      if (actions.payload === "ApiVideoGames") {
-        filtered = copOrder.filter((e) => e.source === actions.payload);
-      } else if (actions.payload === "DbVideoGames") {
-        filtered = copOrder.filter((e) => e.genres.includes(actions.payload));
-      } else {
-        console.warn("Unknown filter type:", actions.payload);
-        return { ...state };
+      if (actions.payload === "ApiVideogames") {
+        filtered = copOrder.filter((e) => Number.isInteger(e.id));
+        return {
+          ...state,
+          myCards: filtered
+        };
+      } else if (actions.payload === "DbVideogames") {
+        filtered = copOrder.filter((e) => !Number.isInteger(e.id))       
+          return {
+            ...state,
+            myCards: filtered
+          };
+      }else{
+        return {...state};
       }
-      return {
-        ...state,
-        myCards: filtered
-      };
     }
 
     case ORDER: {
@@ -95,12 +136,10 @@ const reducer = (state = initialState, actions) => {
     }
 
     case CARD_BY_NAME: {
-      const copySearch = [...state.mySearchCopy]
-      const search = copySearch.filter((e) => e.name === actions.payload)
 
       return {
         ...state,
-        myCards: search
+        myCards: actions.payload
       }
     }
     
